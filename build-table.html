@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <title>Build table</title>
+
+    <style type="text/css">
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1.5rem;
+      }
+
+      tr:nth-child(odd) {
+        background-color: #fff;
+      }
+
+      .text-right {
+        text-align: right;
+      }
+
+      .text-strong {
+        font-weight: 900;
+      }
+
+      .text-red {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col p-3 mb-2 shadow-none bg-light rounded">
+          <div id="result"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col p-3 mb-2 shadow-none bg-light rounded">
+          <button id="buildTable">Добавить таблицу</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col p-3 mb-2 shadow-none bg-light rounded">
+          <p id="para" style="color: red;">Para-pam-pam...</p>
+          <button id="changeColor">Change color</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      const cars = [
+        {
+          name: "Volga", 
+          price: "5000", 
+          isHere: true
+        },
+        {
+          name: "Audi", 
+          price: "50000", 
+          isHere: true
+        },
+        {
+          name: "VAZ", 
+          price: "500", 
+          isHere: false
+        }
+      ];
+
+      const NAME = "name";
+      const PRICE = "name";
+      const ISHERE = "isHere";
+
+
+      var isTable = false;
+
+      let button = document.getElementById("buildTable");
+      button.addEventListener("click", () => {
+        if (!isTable) {
+          let resultElement = document.getElementById("result");
+          let table = buildTable(cars);
+          resultElement.append(table);
+          isTable = true;
+        } else {
+          console.log("Table is here");
+        }
+          
+      });
+
+      let buildTable = (cars) => {
+        if (cars == null) {
+          console.log("nodate");
+        }
+
+        let headers = Object.keys(cars[0]);
+        let table = document.createElement("table");
+
+        addHeaders(table, headers);
+
+        for (let i = 0; i < cars.length; i++) {
+          addRows(table, cars[i]);
+        }
+
+        return table;
+      };
+
+      let addHeaders = (table, headers) => {
+        //log("addHeaders");
+        let tr = document.createElement("tr");
+        for (let i = 0; i < headers.length; i++) {
+          let th = document.createElement("th");
+          th.append(headers[i]);
+          tr.append(th);
+        }
+        table.append(tr);
+        //log("addHeaders");
+      };
+
+      let addRows = (table, car) => {
+        //log("addRows");
+        let tr = document.createElement("tr");
+        for (let item in car) {
+          let td = document.createElement("td");
+          let value = car[item];
+          if (item == NAME) {
+            td.setAttribute("class", "text-strong");
+          } else if (item == PRICE) {
+            td.setAttribute("class", "text-right");
+          } if (item == ISHERE) {
+            td.setAttribute("class", "text-red");
+            value = value == true ? "в наличии" : "отсутствует";
+          }
+
+          td.append(value);
+          tr.append(td);
+        }
+        table.append(tr);
+        //log("addRows");
+      };
+
+      let log = (message) => {
+        console.log(new Date() + " - " + message);
+      };
+
+      let para = document.getElementById("para");
+      let buttonChangeColor = document.getElementById("changeColor");
+
+      buttonChangeColor.addEventListener("click", (event) => {
+        if (para.style.color == "red") {
+          para.style.color = "black";
+        } else {
+          para.style.color = "red";
+        }
+        console.log(para.style.color);
+      })
+
+      console.log(para.text);
+    </script>
+
+    <noscript>
+      <div class="container">
+        <div class="row justify-content-start">
+          <div class="col align-self-start">
+            For start app run javascript in browser...
+          </div>
+        </div>
+      </div>
+    </noscript>
+    
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>
