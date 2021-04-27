@@ -21,49 +21,26 @@
     </style>
   </head>
   <body>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col p-3 mb-2 shadow-none bg-light rounded">
-          <h1>Hello, world!</h1>
-        </div>
-        <div class="col p-3 mb-2 shadow-none bg-light rounded">
-          <h1 id="left-header">Hello, world!</h1>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col p-3 mb-2 shadow-none bg-light rounded">
-          <form name="dataForm">
-            <input type="text" name="data" id="data" value="no some text" />
-            <button type="button" class="btn btn-info" onclick="shell('data', 'result')">Start!</button>
-          </form>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col p-3 mb-2 shadow-none bg-light rounded">
-          <p id="result">Old dates...</p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col p-3 mb-2 shadow-none bg-light rounded">
-          <rect width="30" height="30"></rect>
-          <circle cx="50" cy="15" r="15" ></circle>
-          <path d="M105,0L105,30L135,30"></path>
-          <path d="M70,0l0,30l30,0"></path>
-        </div>
-      </div>
-
-      
-    </div>
-
     <script type="text/javascript">
       // function shell(input, out) {
       //   let inputElement = document.getElementById(input).value;
       //   let elementOut = document.getElementById(out);
       //   elementOut.innerHTML = inputElement;
       // }
+      
+      function makeObservable(target) {
+        //
+      }
 
+      let user = {}
       
-      
+      user = makeObservable(user)
+
+      user.observe((key, value) => {
+        alert(`SET ${key}=${value}`)
+      })
+
+      user.name = 'John'
       
     </script>
 
